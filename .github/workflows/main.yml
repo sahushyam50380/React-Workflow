@@ -1,31 +1,29 @@
-name: Node.js CI
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+ name: Build my React App
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm install
-        working-directory: ./React-Workflow  # change if package.json is not in root
-
-      - name: Run build
-        run: npm run build
-        working-directory: ./React-Workflow
+ on: 
+   push:
+     branches: [ main ]
+ jobs: 
+   build-React-app:
+     runs-on: ubuntu-latest
+     steps:
+      -  uses: actions/checkout@v5.0.0
+      -  name: setup Node JS
+         uses: actions/setup-node@v5.0.0
+         with: 
+           node-version: 22.x
+           cache: 'npm'
+      -  name: Install Dependencies
+         run:  npm install
+      -  name: Build React-App
+         run: npm run build
+      -  name: upload buil artieffect
+         uses: actions/upload-artifact@v4.6.2 
+         with: 
+           name: react-buil
+           path: out/
+                
 
        
    
